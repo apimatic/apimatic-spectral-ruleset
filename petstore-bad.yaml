@@ -1,0 +1,203 @@
+openapi: 3.1.0
+info:
+  title: PetstoreBareBones
+  summary: This API stores data about available pets 
+  description: The API enables users to view detailed information about a specific pet store and its available pets. The API can be used by pet owners, pet adoption agencies, and anyone looking for information about pets in a particular area.
+  contact: 
+    name: APIMatic
+    url: https://www.sdks.io/contact
+    email: support@sdks.io
+  version: '1.0.0'
+jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
+servers:
+- url: https://src8wr32cg.api.quickmocker.com
+  variables: {}
+paths:
+  /pets:
+    post:
+      summary: Updates a pet in the store with form data
+      tags:
+      - pets
+      description: "hello"
+      operationId: updatePet
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '201':
+          description: Null response
+          headers: {}
+          content: {}
+        default:
+          description: unexpected error
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      deprecated: false
+    
+    put:
+      tags:
+      - pets
+      summary: Updates a pet in the store with form data
+      operationId: createPet
+      description: Create a pet and key characteristics
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '201':
+          description: Null response
+          headers: {}
+          content: {}
+        default:
+          description: unexpected error
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 101010
+                message: Invalid pet type, only cat and dogs allowed
+      deprecated: false
+    
+    get:
+      summary: create a single pet
+      tags:
+        - pets
+      description: Hello list
+      operationId: listPets
+      parameters:
+      - name: limit
+        in: query
+        style: form
+        explode: true
+        schema:
+          maximum: 100
+          type: integer
+          contentEncoding: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    contentMediaType: text/plain
+          content:
+            application/json:
+              schema:
+                maxItems: 100
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      contentEncoding: int64
+                    name:
+                      type: string
+                    petType:
+                      type: string
+                      enum:
+                      - dog
+                      - cat
+                contentMediaType: application/json
+        default:
+          description: unexpected error
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      deprecated: false
+    parameters: []
+  /pets/{petId}:
+    get:
+      tags:
+      - pets
+      summary: showPetById
+      description: Info for a specific pet
+      operationId: showPetById
+      parameters:
+      - name: petId
+        in: path
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    contentEncoding: int64
+                  name:
+                    type: string
+                  petType:
+                    type: string
+                    enum:
+                    - dog
+                    - cat
+        default:
+          description: unexpected error
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      deprecated: false
+    parameters: []
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        id:
+          type: integer
+          contentEncoding: int64
+        name:
+          type: string
+        petType:
+          type: string
+          enum:
+          - dog
+          - cat
+    Error:
+      title: Error
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          contentEncoding: int32
+        message:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+- bearerAuth: []
+tags:
+- name: pets

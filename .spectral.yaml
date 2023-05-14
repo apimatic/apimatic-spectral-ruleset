@@ -1,0 +1,84 @@
+extends: ["spectral:oas", "spectral:asyncapi"]
+rules:
+  property-requires-description:
+    description: Property MUST include description
+    severity: error
+    given: $..property[*]
+    then:
+      - field: "description"
+        function: truthy
+  property-requires-example:
+    description: Property MUST include an example
+    severity: error
+    given: $..properties[*]
+    then:
+      - field: example
+        function: truthy
+  params-requires-description:
+    description: Parameters must include description
+    given: $..parameters.*
+    severity: error
+    message: '{{description}}; missing {{property}}'
+    then:
+      function: truthy
+      field: description 
+  params-requires-examples:
+    description: Parameters must include examples
+    given: $..parameters.*
+    severity: error
+    message: '{{description}}; missing {{property}}'
+    then:
+      function: xor
+      functionOptions:
+        properties:
+          - example
+          - examples
+  request-body-requires-description:
+    description: Request body must include description
+    given: $..requestBody
+    severity: error
+    message: '{{description}}; missing {{property}}'
+    then:
+      function: truthy
+      field: description  
+  request-body-requires-examples:
+    description: Request body must include examples
+    given: $..requestBody.content.*
+    severity: error
+    message: '{{description}}; missing {{property}}'
+    then:
+      function: xor
+      functionOptions:
+        properties:
+          - example
+          - examples  
+  schema-requires-description:
+    description: Schemas must include description
+    given: $..schemas.*
+    severity: error
+    message: '{{description}}; missing {{property}}'
+    then:
+      function: truthy
+      field: description 
+  schema-requires-examples:
+    description: Schema must include examples
+    given: $..schemas.*
+    severity: error
+    message: '{{description}}; missing {{property}}'
+    then:
+      function: xor
+      functionOptions:
+        properties:
+          - example
+          - examples 
+  response-requires-examples:
+    description: Response content must include examples
+    given: $..responses.*.content.application/json
+    severity: error
+    message: '{{description}}; missing {{property}}'
+    then:
+      function: xor
+      functionOptions:
+        properties:
+          - example
+          - examples 
