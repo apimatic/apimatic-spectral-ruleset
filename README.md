@@ -20,8 +20,8 @@ spectral lint petstore-good.yaml --ruleset .apimatic.yaml
 
 Below are the rules defined in .apimatic.yaml
 
-* Property MUST include description
-* Property MUST include an example
+* Property must include description
+* Property must include an example
 * Parameters must include description
 * Parameters must include examples
 * Request body must include description
