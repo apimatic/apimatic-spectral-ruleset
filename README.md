@@ -1,4 +1,4 @@
-# apimatic-spectral-ruleset
+# APIMatic Spectral Custom Ruleset
 
 Generating code libraries for SDKs from API definitions require specific validation rules to ensure high quality code and accompanying documentation. 
 

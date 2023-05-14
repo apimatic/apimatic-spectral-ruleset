@@ -1,14 +1,14 @@
 extends: ["spectral:oas", "spectral:asyncapi"]
 rules:
   property-requires-description:
-    description: Property MUST include description
+    description: Property must include description
     severity: error
     given: $..property[*]
     then:
       - field: "description"
         function: truthy
   property-requires-example:
-    description: Property MUST include an example
+    description: Property must include an example
     severity: error
     given: $..properties[*]
     then:
