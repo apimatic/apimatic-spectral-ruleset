@@ -1,14 +1,21 @@
 extends: ["spectral:oas", "spectral:asyncapi"]
 rules:
+  # path-operations-require-operation-id:
+  #   description: Operations must include operation id
+  #   severity: error
+  #   given: $..paths.*
+  #   then:
+  #     - field: "operationId"
+  #       function: truthy
   property-requires-description:
     description: Property must include description
     severity: error
-    given: $..property[*]
+    given: $..properties[*]
     then:
-      - field: "description"
+      - field: description
         function: truthy
   property-requires-example:
-    description: Property must include an example
+    description: Property must include example
     severity: error
     given: $..properties[*]
     then:
@@ -81,4 +88,4 @@ rules:
       functionOptions:
         properties:
           - example
-          - examples 
+          - examples
