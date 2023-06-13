@@ -43,17 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    contentEncoding: int32
-                    description: a code that corresponds to the error
-                    example: 101010
-                  message:
-                    type: string
-                    description: a message provides a human readable description of the error
-                    example: Invalid pet type, only cat and dogs allowed
+                $ref: '#/components/schemas/Error'
               example:
                 code: 101010
                 message: Invalid pet type, only cat and dogs allowed

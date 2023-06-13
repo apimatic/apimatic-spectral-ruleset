@@ -13,7 +13,7 @@ Clone this repository and copy your API definition into the repository at the sa
 Replace petstore-good.yaml with your API definition file name and run the command.
 
 ```
-spectral lint petstore-good.yaml --ruleset ..yaml
+spectral lint petstore-good.yaml --ruleset .apimatic.yaml
 ```
 
 ## Current Ruleset
